@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Pill Reminder</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="period_begin">1. Einnahmetag nach der letzten Pause</string>
+    <string name="period_type">Einnahmeschema</string>
+    <string name="notification_time">Erinnerungszeit</string>
+    <string name="notification_period">Erinnerungsintervall</string>
+</resources>
