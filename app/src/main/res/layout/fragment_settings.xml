@@ -15,12 +15,13 @@
     <EditText
         android:id="@+id/editPeriodBegin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelPeriodBegin"
         android:ems="10"
-        android:inputType="date"/>
+        android:inputType="date"
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/labelPeriodType"
@@ -34,7 +35,7 @@
     <Spinner
         android:id="@+id/spinnerPeriodType"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelPeriodType"
@@ -52,12 +53,13 @@
     <EditText
         android:id="@+id/editNotificationTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelNotificationTime"
         android:ems="10"
-        android:inputType="time" />
+        android:inputType="time"
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/labelNotificationPeriod"
@@ -71,11 +73,12 @@
     <EditText
         android:id="@+id/editNotificationPeriod"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelNotificationPeriod"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="date"
+        android:focusable="false"/>
 
 </RelativeLayout>
