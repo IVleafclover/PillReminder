@@ -1,4 +1,4 @@
-package de.ivleafcloverapps.pillreminder;
+package de.ivleafcloverapps.pillreminder.dialogs;
 
 import android.app.TimePickerDialog;
 import android.content.Context;

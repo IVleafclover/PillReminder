@@ -1,4 +1,4 @@
-package de.ivleafcloverapps.pillreminder;
+package de.ivleafcloverapps.pillreminder.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -9,13 +9,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 
+import de.ivleafcloverapps.pillreminder.R;
+
 /**
  * Created by Christian on 19.05.2017.
  */
 
 public class SpinnerDatePickerDialog extends DialogFragment {
 
-    final String TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
+    /**
+     * Listener object, which gets the results from the DatePicker
+     */
     private ISpinnerDatePickerDialogListener listener;
     private DatePicker datePicker;
 
@@ -59,5 +64,9 @@ public class SpinnerDatePickerDialog extends DialogFragment {
 
     public void setDatePicker(DatePicker datePicker) {
         this.datePicker = datePicker;
+    }
+
+    public String getTAG() {
+        return TAG;
     }
 }

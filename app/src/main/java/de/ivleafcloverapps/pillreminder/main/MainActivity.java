@@ -1,7 +1,8 @@
-package de.ivleafcloverapps.pillreminder;
+package de.ivleafcloverapps.pillreminder.main;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,9 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import de.ivleafcloverapps.pillreminder.R;
+import de.ivleafcloverapps.pillreminder.fragments.CalendarFragment;
+import de.ivleafcloverapps.pillreminder.fragments.SettingsFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * id of the active menu
+     */
     int activeMenuId;
 
     @Override
@@ -58,7 +66,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

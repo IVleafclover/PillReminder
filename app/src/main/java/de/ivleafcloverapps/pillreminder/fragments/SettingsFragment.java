@@ -1,4 +1,4 @@
-package de.ivleafcloverapps.pillreminder;
+package de.ivleafcloverapps.pillreminder.fragments;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
@@ -13,16 +13,22 @@ import android.widget.EditText;
 
 import java.util.Date;
 
+import de.ivleafcloverapps.pillreminder.R;
+import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerDatePickerDialogListener;
+import de.ivleafcloverapps.pillreminder.dialogs.SpinnerDatePickerDialog;
+
 /**
  * Created by Christian on 11.05.2017.
  */
 
 public class SettingsFragment extends Fragment implements ISpinnerDatePickerDialogListener {
 
+    // ids of the dialogs
     private final int PERIOD_BEGIN_DIALOG_ID = 0;
     private final int NOTIFICATION_TIME_DIALOG_ID = 1;
     private final int NOTIFICATION_PERIOD_DIALOG_ID = 2;
 
+    // gui elements
     EditText periodBegin;
     EditText notificationTime;
     EditText notificationPeriod;
@@ -37,6 +43,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // initialize listeners for text inputs, to open picker dialogs
         periodBegin = (EditText) getView().findViewById(R.id.editPeriodBegin);
         periodBegin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +68,8 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             }
         });
 
+        // load and set inputs from saved preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-
         periodBegin.setText(sharedPreferences.getString("periodBegin", ""));
         notificationTime.setText(sharedPreferences.getString("notificationTime", ""));
         notificationPeriod.setText(sharedPreferences.getString("notificationPeriod", ""));
@@ -94,18 +101,19 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
         } catch (NullPointerException e) {
             // Nothing to do here
         }
-        editor.commit();
+        editor.apply();
     }
 
+    /**
+     * opens dialog for id
+     *
+     * @param id
+     */
     private void showDialog(int id) {
         switch(id) {
             case PERIOD_BEGIN_DIALOG_ID:
-                SpinnerDatePickerDialog ddialog = new SpinnerDatePickerDialog(this);
-                ddialog.show(getFragmentManager(), ddialog.TAG);
-
-                //DatePickerDialog datePickerDialog = new DatePickerDialog(
-                //        getView().getContext(), SettingsFragment.this, 2000 , 10, 1);
-                //datePickerDialog.show();
+                SpinnerDatePickerDialog datePickerDialog = new SpinnerDatePickerDialog(this);
+                datePickerDialog.show(getFragmentManager(), datePickerDialog.getTAG());
                 break;
             case NOTIFICATION_TIME_DIALOG_ID:
                 //TimePickerDialogWithId dialog = new TimePickerDialogWithId(NOTIFICATION_TIME_DIALOG_ID, getView().getContext(), SettingsFragment.this, 0, 0, true);
@@ -120,6 +128,8 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
 
     @Override
     public void onSpinnerDateDialogPositiveClick(SpinnerDatePickerDialog dialog) {
+        // TODO send DatePicker values with listener
+        // load DatePicker from dialog and set them to EditText text
         DatePicker datePicker = dialog.getDatePicker();
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
