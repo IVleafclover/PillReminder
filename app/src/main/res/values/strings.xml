@@ -10,4 +10,7 @@
     <string name="period_type">Einnahmeschema</string>
     <string name="notification_time">Erinnerungszeit</string>
     <string name="notification_period">Erinnerungsintervall</string>
+
+    <string name="abort">Abbrechen</string>
+    <string name="submit">Bestätigen</string>
 </resources>
