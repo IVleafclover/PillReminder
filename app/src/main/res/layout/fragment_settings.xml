@@ -14,14 +14,14 @@
 
     <EditText
         android:id="@+id/editPeriodBegin"
-        android:layout_width="wrap_content"
+        android:layout_width="215dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelPeriodBegin"
         android:ems="10"
-        android:inputType="date"
-        android:focusable="false" />
+        android:focusable="false"
+        android:inputType="date" />
 
     <TextView
         android:id="@+id/labelPeriodType"
@@ -34,11 +34,12 @@
 
     <Spinner
         android:id="@+id/spinnerPeriodType"
-        android:layout_width="wrap_content"
+        android:layout_width="215dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelPeriodType"
+        android:entries="@array/periodTypes"
         />
 
     <TextView
@@ -52,14 +53,14 @@
 
     <EditText
         android:id="@+id/editNotificationTime"
-        android:layout_width="wrap_content"
+        android:layout_width="215dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelNotificationTime"
         android:ems="10"
-        android:inputType="time"
-        android:focusable="false" />
+        android:focusable="false"
+        android:inputType="time" />
 
     <TextView
         android:id="@+id/labelNotificationPeriod"
@@ -72,13 +73,13 @@
 
     <EditText
         android:id="@+id/editNotificationPeriod"
-        android:layout_width="wrap_content"
+        android:layout_width="215dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelNotificationPeriod"
         android:ems="10"
-        android:inputType="date"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:inputType="date" />
 
 </RelativeLayout>

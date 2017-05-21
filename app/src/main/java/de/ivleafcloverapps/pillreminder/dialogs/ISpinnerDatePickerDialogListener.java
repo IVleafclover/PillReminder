@@ -6,6 +6,5 @@ package de.ivleafcloverapps.pillreminder.dialogs;
 
 public interface ISpinnerDatePickerDialogListener {
     void onSpinnerDateDialogPositiveClick(SpinnerDatePickerDialog dialog);
-
     void onSpinnerDateDialogNegativeClick(SpinnerDatePickerDialog dialog);
 }

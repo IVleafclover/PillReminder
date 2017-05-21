@@ -7,7 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import de.ivleafcloverapps.pillreminder.R;
 
@@ -15,69 +15,72 @@ import de.ivleafcloverapps.pillreminder.R;
  * Created by Christian on 19.05.2017.
  */
 
-public class SpinnerDatePickerDialog extends DialogFragment {
+public class SpinnerTimePickerDialog extends DialogFragment {
 
     private final String TAG = this.getClass().getSimpleName();
-    int defaultYear;
-    int defaultMonth;
-    int defaultDay;
     /**
      * Listener object, which gets the results from the DatePicker
      */
-    private ISpinnerDatePickerDialogListener listener;
-    private DatePicker datePicker;
+    private ISpinnerTimePickerDialogListener listener;
+    private TimePicker timePicker;
+    private int defaultHour;
+    private int defaultMinute;
+    private int dialogId;
 
-    public SpinnerDatePickerDialog() {
+    public SpinnerTimePickerDialog() {
         super();
     }
 
     // this is no clean android fragment constructor, but we want to use it here
     @SuppressLint("ValidFragment")
-    public SpinnerDatePickerDialog(ISpinnerDatePickerDialogListener listener) {
+    public SpinnerTimePickerDialog(ISpinnerTimePickerDialogListener listener, int dialogId) {
         super();
         this.listener = listener;
+        this.dialogId = dialogId;
     }
 
     // this is no clean android fragment constructor, but we want to use it here
     @SuppressLint("ValidFragment")
-    public SpinnerDatePickerDialog(ISpinnerDatePickerDialogListener listener, int year, int month, int day) {
+    public SpinnerTimePickerDialog(ISpinnerTimePickerDialogListener listener, int dialogId, int hour, int minute) {
         super();
         this.listener = listener;
-        this.defaultYear = year;
-        this.defaultMonth = month;
-        this.defaultDay = day;
+        this.dialogId = dialogId;
+        this.defaultHour = hour;
+        this.defaultMinute = minute;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_date, null);
-        datePicker = (DatePicker) view.findViewById(R.id.spinnerDatePicker);
-        datePicker.updateDate(defaultYear, defaultMonth, defaultDay);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_time, null);
+        timePicker = (TimePicker) view.findViewById(R.id.spinnerTimePicker);
+        // TODO
+        timePicker.setCurrentHour(defaultHour);
+        timePicker.setCurrentMinute(defaultMinute);
         builder.setView(view);
         builder
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        listener.onSpinnerDateDialogPositiveClick(SpinnerDatePickerDialog.this);
+                        listener.onSpinnerTimeDialogPositiveClick(SpinnerTimePickerDialog.this);
                     }
                 })
                 .setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
-                        listener.onSpinnerDateDialogNegativeClick(SpinnerDatePickerDialog.this);
+                        listener.onSpinnerTimeDialogNegativeClick(SpinnerTimePickerDialog.this);
                     }
                 });
         return builder.create();
     }
 
-    public DatePicker getDatePicker() {
-        return datePicker;
+    public TimePicker getTimePicker() {
+        return timePicker;
     }
 
-    public void setDatePicker(DatePicker datePicker) {
-        this.datePicker = datePicker;
+    public int getDialogId() {
+        return dialogId;
     }
 
     public String getTAG() {

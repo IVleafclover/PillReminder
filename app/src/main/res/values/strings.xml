@@ -5,12 +5,17 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_calendar">Calendar</string>
 
-    <string name="period_begin">1. Einnahmetag nach der letzten Pause</string>
-    <string name="period_type">Einnahmeschema</string>
-    <string name="notification_time">Erinnerungszeit</string>
-    <string name="notification_period">Erinnerungsintervall</string>
+    <string name="period_begin">1st day after last break</string>
+    <string name="period_type">Period type</string>
+    <string name="notification_time">notification time</string>
+    <string name="notification_period">Notification period</string>
 
-    <string name="abort">Abbrechen</string>
-    <string name="submit">Bestätigen</string>
+    <string name="abort">Abort</string>
+    <string name="submit">submit</string>
+
+    <string-array name="periodTypes">
+        <item>21 - 7</item>
+    </string-array>
 </resources>

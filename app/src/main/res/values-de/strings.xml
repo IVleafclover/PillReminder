@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Erinner mich</string>
+    <string name="abort">Abbrechen</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="navigation_drawer_close">Schließe Navigation</string>
+    <string name="navigation_drawer_open">Öffne Navigation</string>
+    <string name="notification_period">Erinnerungsintervall</string>
+    <string name="notification_time">Erinnerungszeit</string>
+    <string name="period_begin">1. Einnahmetag nach der letzten Pause</string>
+    <string name="period_type">Einnahmeschema</string>
+    <string name="submit">Bestätigen</string>
+    <string name="action_calendar">Kalender</string>
+</resources>

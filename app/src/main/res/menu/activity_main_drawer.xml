@@ -5,11 +5,11 @@
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_menu_calendar"
-            android:title="Import" />
+            android:title="@string/action_calendar" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_settings"
-            android:title="Tools" />
+            android:title="@string/action_settings" />
     </group>
 
 </menu>
