@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import de.ivleafcloverapps.pillreminder.R;
 import de.ivleafcloverapps.pillreminder.fragments.CalendarFragment;
 import de.ivleafcloverapps.pillreminder.fragments.SettingsFragment;
+import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity
 
         // because FragmentLayout has no body, we have to initialize the default fragment
         setFragment(new CalendarFragment());
+
+        // start Background NotificationService
+        NotificationAlarmManager.startAlarmManager(this);
     }
 
     @Override

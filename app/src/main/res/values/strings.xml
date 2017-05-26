@@ -18,4 +18,5 @@
     <string-array name="periodTypes">
         <item>21 - 7</item>
     </string-array>
+    <string name="notication">You have taken your pill?</string>
 </resources>

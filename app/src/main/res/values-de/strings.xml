@@ -11,4 +11,5 @@
     <string name="period_type">Einnahmeschema</string>
     <string name="submit">Bestätigen</string>
     <string name="action_calendar">Kalender</string>
+    <string name="notication">Haben Sie Ihre Pille genommen?</string>
 </resources>
