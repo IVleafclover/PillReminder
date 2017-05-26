@@ -30,6 +30,10 @@ public class NotificationAlarmManager {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 1, startNotificationServicePendingIntent);
     }
 
+    public static void updateAlarmManager() {
+        // TODO
+    }
+
     private static PendingIntent getAlarmManager(Context context) {
         Intent startNotificationServiceIntent = new Intent(context, NotificationService.class);
         return PendingIntent.getBroadcast(context, 0, startNotificationServiceIntent, PendingIntent.FLAG_NO_CREATE);

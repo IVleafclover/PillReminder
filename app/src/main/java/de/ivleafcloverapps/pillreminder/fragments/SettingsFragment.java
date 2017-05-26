@@ -22,6 +22,7 @@ import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerDatePickerDialogListener
 import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerTimePickerDialogListener;
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerDatePickerDialog;
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerTimePickerDialog;
+import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
 
 /**
  * Created by Christian on 11.05.2017.
@@ -118,6 +119,9 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             // Nothing to do here
         }
         editor.apply();
+
+        // update the notification timer
+        NotificationAlarmManager.updateAlarmManager();
     }
 
     /**
