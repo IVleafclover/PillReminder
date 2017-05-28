@@ -1,4 +1,4 @@
-package de.ivleafcloverapps.pillreminder.main;
+package de.ivleafcloverapps.pillreminder.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         setFragment(new CalendarFragment());
 
         // start Background NotificationService
-        NotificationAlarmManager.startAlarmManager(this);
+        NotificationAlarmManager.startAlarmManager(this, false);
     }
 
     @Override

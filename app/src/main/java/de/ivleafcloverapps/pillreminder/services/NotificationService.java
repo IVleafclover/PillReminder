@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import de.ivleafcloverapps.pillreminder.R;
-import de.ivleafcloverapps.pillreminder.main.MainActivity;
+import de.ivleafcloverapps.pillreminder.activities.MainActivity;
 
 /**
  * Created by Christian on 26.05.2017.

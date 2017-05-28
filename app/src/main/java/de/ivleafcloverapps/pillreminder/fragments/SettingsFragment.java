@@ -19,7 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.ivleafcloverapps.pillreminder.R;
-import de.ivleafcloverapps.pillreminder.constants.DateFormats;
+import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
+import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerDatePickerDialogListener;
 import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerTimePickerDialogListener;
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerDatePickerDialog;
@@ -82,10 +83,10 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
 
         // load and set inputs from saved preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-        periodBegin.setText(sharedPreferences.getString("periodBegin", ""));
-        notificationTime.setText(sharedPreferences.getString("notificationTime", ""));
-        notificationPeriod.setText(sharedPreferences.getString("notificationPeriod", ""));
-        periodType.setSelection(sharedPreferences.getInt("periodType", 0));
+        periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, ""));
+        notificationTime.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, ""));
+        notificationPeriod.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, ""));
+        periodType.setSelection(sharedPreferences.getInt(SharedPreferenceConstants.PERIOD_TYPE, 0));
     }
 
     @Override
@@ -95,29 +96,29 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         try {
-            editor.putString("periodBegin", periodBegin.getText().toString());
+            editor.putString(SharedPreferenceConstants.PERIOD_BEGIN, periodBegin.getText().toString());
         } catch (NullPointerException e) {
             // Nothing to do here
         }
         try {
-            editor.putString("notificationTime", notificationTime.getText().toString());
+            editor.putString(SharedPreferenceConstants.NOTIFICATION_TIME, notificationTime.getText().toString());
         } catch (NullPointerException e) {
             // Nothing to do here
         }
         try {
-            editor.putString("notificationPeriod", notificationPeriod.getText().toString());
+            editor.putString(SharedPreferenceConstants.NOTIFICATION_PERIOD, notificationPeriod.getText().toString());
         } catch (NullPointerException e) {
             // Nothing to do here
         }
         try {
-            editor.putInt("periodType", periodType.getSelectedItemPosition());
+            editor.putInt(SharedPreferenceConstants.PERIOD_TYPE, periodType.getSelectedItemPosition());
         } catch (NullPointerException e) {
             // Nothing to do here
         }
         editor.apply();
 
         // update the notification timer
-        NotificationAlarmManager.updateAlarmManager();
+        NotificationAlarmManager.startAlarmManager(getView().getContext(), true);
     }
 
     /**
@@ -130,7 +131,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             case PERIOD_BEGIN_DIALOG_ID:
                 SpinnerDatePickerDialog datePickerDialog;
                 try {
-                    Date periodBeginDate = DateFormats.DATE_FORMAT.parse(periodBegin.getText().toString());
+                    Date periodBeginDate = DateFormatConstants.DATE_FORMAT.parse(periodBegin.getText().toString());
                     java.util.Calendar calendar = java.util.Calendar.getInstance();
                     calendar.setTime(periodBeginDate);
                     datePickerDialog = new SpinnerDatePickerDialog(this, calendar);
@@ -142,7 +143,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             case NOTIFICATION_TIME_DIALOG_ID:
                 SpinnerTimePickerDialog timePickerDialog;
                 try {
-                    Date notificationTimeDate = DateFormats.TIME_FORMAT.parse(notificationTime.getText().toString());
+                    Date notificationTimeDate = DateFormatConstants.TIME_FORMAT.parse(notificationTime.getText().toString());
                     java.util.Calendar calendar = java.util.Calendar.getInstance();
                     calendar.setTime(notificationTimeDate);
                     timePickerDialog = new SpinnerTimePickerDialog(this, NOTIFICATION_TIME_DIALOG_ID, calendar);
@@ -154,7 +155,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             case NOTIFICATION_PERIOD_DIALOG_ID:
                 SpinnerTimePickerDialog timePickerDialog2;
                 try {
-                    Date notificationPeriodDate = DateFormats.TIME_FORMAT.parse(notificationPeriod.getText().toString());
+                    Date notificationPeriodDate = DateFormatConstants.TIME_FORMAT.parse(notificationPeriod.getText().toString());
                     java.util.Calendar calendar = java.util.Calendar.getInstance();
                     calendar.setTime(notificationPeriodDate);
                     timePickerDialog2 = new SpinnerTimePickerDialog(this, NOTIFICATION_PERIOD_DIALOG_ID, calendar);
@@ -176,7 +177,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
         int year = datePicker.getYear();
 
         // TODO
-        String formattedDate = DateFormats.DATE_FORMAT.format(new Date(year - 1900, month, day));
+        String formattedDate = DateFormatConstants.DATE_FORMAT.format(new Date(year - 1900, month, day));
         periodBegin.setText(formattedDate);
     }
 
@@ -192,6 +193,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
         TimePicker timePicker = dialog.getTimePicker();
         int hour;
         int minute;
+        // check version to not use deprecated methods in supported versions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             hour = timePicker.getHour();
             minute = timePicker.getMinute();
@@ -202,7 +204,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        String formattedTime = DateFormats.TIME_FORMAT.format(calendar.getTime());
+        String formattedTime = DateFormatConstants.TIME_FORMAT.format(calendar.getTime());
 
         switch (dialog.getDialogId()) {
             case NOTIFICATION_TIME_DIALOG_ID:

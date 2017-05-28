@@ -15,7 +15,7 @@ public class NotificationBootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // receive the boot notification
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            NotificationAlarmManager.startAlarmManager(context);
+            NotificationAlarmManager.startAlarmManager(context, false);
         }
     }
 }

@@ -66,6 +66,7 @@ public class SpinnerTimePickerDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_time, null);
         timePicker = (TimePicker) view.findViewById(R.id.spinnerTimePicker);
+        timePicker.setIs24HourView(true);
 
         // we have to check versions here because the methods are only replaced in newer apk versions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
