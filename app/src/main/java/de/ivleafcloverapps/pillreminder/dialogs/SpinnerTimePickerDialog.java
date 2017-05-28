@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TimePicker;
@@ -49,15 +50,32 @@ public class SpinnerTimePickerDialog extends DialogFragment {
         this.defaultMinute = minute;
     }
 
+    // this is no clean android fragment constructor, but we want to use it here
+    @SuppressLint("ValidFragment")
+    public SpinnerTimePickerDialog(ISpinnerTimePickerDialogListener listener, int dialogId, java.util.Calendar calendar) {
+        super();
+        this.listener = listener;
+        this.dialogId = dialogId;
+        this.defaultHour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
+        this.defaultMinute = calendar.get(java.util.Calendar.MINUTE);
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_time, null);
         timePicker = (TimePicker) view.findViewById(R.id.spinnerTimePicker);
-        // TODO
-        timePicker.setCurrentHour(defaultHour);
-        timePicker.setCurrentMinute(defaultMinute);
+
+        // we have to check versions here because the methods are only replaced in newer apk versions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setHour(defaultHour);
+            timePicker.setMinute(defaultMinute);
+        } else {
+            timePicker.setCurrentHour(defaultHour);
+            timePicker.setCurrentMinute(defaultMinute);
+        }
+
         builder.setView(view);
         builder
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {

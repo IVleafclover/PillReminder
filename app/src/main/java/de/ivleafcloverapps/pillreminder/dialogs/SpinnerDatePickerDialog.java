@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 
+import java.util.Calendar;
+
 import de.ivleafcloverapps.pillreminder.R;
 
 /**
@@ -46,6 +48,16 @@ public class SpinnerDatePickerDialog extends DialogFragment {
         this.defaultYear = year;
         this.defaultMonth = month;
         this.defaultDay = day;
+    }
+
+    // this is no clean android fragment constructor, but we want to use it here
+    @SuppressLint("ValidFragment")
+    public SpinnerDatePickerDialog(ISpinnerDatePickerDialogListener listener, Calendar calendar) {
+        super();
+        this.listener = listener;
+        this.defaultYear = calendar.get(Calendar.YEAR);
+        this.defaultMonth = calendar.get(Calendar.MONTH);
+        this.defaultDay = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 /**
  * Created by Christian on 26.05.2017.
@@ -15,10 +16,12 @@ public class NotificationAlarmManager {
         // check if AlarmManager is already running
         if (isAlarmManagerRunning(context)) {
             // when yes, then do not start a new one
+            Toast.makeText(context, "It is running", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // create AlarmManager
+        Toast.makeText(context, "It is not running", Toast.LENGTH_SHORT).show();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
         Intent startNotificationServiceIntent = new Intent(context, NotificationService.class);
         PendingIntent startNotificationServicePendingIntent = PendingIntent.getService(context, 0, startNotificationServiceIntent, 0);
@@ -36,7 +39,7 @@ public class NotificationAlarmManager {
 
     private static PendingIntent getAlarmManager(Context context) {
         Intent startNotificationServiceIntent = new Intent(context, NotificationService.class);
-        return PendingIntent.getBroadcast(context, 0, startNotificationServiceIntent, PendingIntent.FLAG_NO_CREATE);
+        return PendingIntent.getService(context, 0, startNotificationServiceIntent, PendingIntent.FLAG_NO_CREATE);
     }
 
     private static boolean isAlarmManagerRunning(Context context) {

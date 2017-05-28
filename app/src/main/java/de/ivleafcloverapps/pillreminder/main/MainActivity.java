@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             // when back is double clicked the app should be closed
-            // TODO check if this can make problems with the notification service
-            // maybe use
-            // super.onBackPressed();
             finish();
         } else {
             // when back is clicked, show the menu
