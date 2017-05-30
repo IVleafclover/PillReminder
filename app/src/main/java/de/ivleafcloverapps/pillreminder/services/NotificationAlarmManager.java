@@ -58,6 +58,7 @@ public class NotificationAlarmManager {
             calendarNotificationPeriod.setTime(DateFormatConstants.TIME_FORMAT.parse(notificationPeriod));
 
             int notificationPeriodInMilliSeconds = (calendarNotificationPeriod.get(java.util.Calendar.HOUR_OF_DAY) * 60 + calendarNotificationPeriod.get(java.util.Calendar.MINUTE)) * 1000 * 60;
+            // TODO the AlarmManager ignores Timezones, so that in a TimeZone +1 the ALarm goes one hour later than set in the app, this is to fix
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotificationTime.getTimeInMillis(), notificationPeriodInMilliSeconds, startNotificationServicePendingIntent);
         } catch (ParseException e) {
             // this sould never happen

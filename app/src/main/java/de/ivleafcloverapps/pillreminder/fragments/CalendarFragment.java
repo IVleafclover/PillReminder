@@ -2,6 +2,7 @@ package de.ivleafcloverapps.pillreminder.fragments;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -65,9 +66,21 @@ public class CalendarFragment extends Fragment {
         if (takenToday) {
             takePill.setText(R.string.take_not);
             info.setText(R.string.taken);
+            // check version again to not take deprecated methods
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                info.setTextColor(getResources().getColor(R.color.colorGreen, getView().getContext().getTheme()));
+            } else {
+                info.setTextColor(getResources().getColor(R.color.colorGreen));
+            }
         } else {
             takePill.setText(R.string.take);
             info.setText(R.string.not_taken);
+            // check version again to not take deprecated methods
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                info.setTextColor(getResources().getColor(R.color.colorRed, getView().getContext().getTheme()));
+            } else {
+                info.setTextColor(getResources().getColor(R.color.colorRed));
+            }
         }
     }
 
@@ -85,11 +98,11 @@ public class CalendarFragment extends Fragment {
         calendar.setTimeInMillis(System.currentTimeMillis());
         String newLastTakenDay;
         if (takenToday) {
-            newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar);
+            newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());
         } else {
             // if it is not longer taken today, set the lastTakenToday to yesterday
             calendar.set(Calendar.DATE, -1);
-            newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar);
+            newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());
         }
         editor.putString(SharedPreferenceConstants.LAST_TAKEN_DAY, newLastTakenDay);
         editor.apply();

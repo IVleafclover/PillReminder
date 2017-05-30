@@ -8,5 +8,5 @@ import java.text.SimpleDateFormat;
 
 public class DateFormatConstants {
     public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
-    public final static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("kk:mm");
+    public final static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 }
