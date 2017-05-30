@@ -12,4 +12,6 @@
     <string name="submit">Bestätigen</string>
     <string name="action_calendar">Kalender</string>
     <string name="notication">Haben Sie Ihre Pille genommen?</string>
+    <string name="taken">Sie haben Ihre Pille heute bereits genommen.</string>
+    <string name="not_taken">Sie haben Ihre Pille heute noch nicht genommen.</string>
 </resources>

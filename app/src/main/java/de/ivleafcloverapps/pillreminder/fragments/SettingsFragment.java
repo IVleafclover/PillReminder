@@ -38,10 +38,10 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
     private final int NOTIFICATION_TIME_DIALOG_ID = 1;
     private final int NOTIFICATION_PERIOD_DIALOG_ID = 2;
     // gui elements
-    EditText periodBegin;
-    EditText notificationTime;
-    EditText notificationPeriod;
-    Spinner periodType;
+    private EditText periodBegin;
+    private EditText notificationTime;
+    private EditText notificationPeriod;
+    private Spinner periodType;
 
     @Nullable
     @Override
@@ -83,10 +83,10 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
 
         // load and set inputs from saved preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-        periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, ""));
-        notificationTime.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, ""));
-        notificationPeriod.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, ""));
-        periodType.setSelection(sharedPreferences.getInt(SharedPreferenceConstants.PERIOD_TYPE, 0));
+        periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, SharedPreferenceConstants.DEFAULT_PERIOD_BEGIN));
+        notificationTime.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, SharedPreferenceConstants.DEFAULT_NOTIFICATION_TIME));
+        notificationPeriod.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, SharedPreferenceConstants.DEFAULT_NOTIFICATION_PERIOD));
+        periodType.setSelection(sharedPreferences.getInt(SharedPreferenceConstants.PERIOD_TYPE, SharedPreferenceConstants.DEFAULT_PERIOD_TYPE));
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
@@ -20,6 +21,10 @@ import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 public class NotificationAlarmManager {
 
     public static void startAlarmManager(Context context, boolean isUpdate) {
+        startAlarmManager(context, isUpdate, false);
+    }
+
+    public static void startAlarmManager(Context context, boolean isUpdate, boolean isFirstStartTomorrow) {
         // check if AlarmManager is already running but not when Settings were changed and the AlarmManager has to be updated
         if (!isUpdate && isAlarmManagerRunning(context)) {
             // when yes, then do not start a new one
@@ -35,8 +40,8 @@ public class NotificationAlarmManager {
         // set time and intervall by loading from SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         //periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, ""));
-        String notificationTime = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, "00:00");
-        String notificationPeriod = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, "00:10");
+        String notificationTime = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, SharedPreferenceConstants.DEFAULT_NOTIFICATION_TIME);
+        String notificationPeriod = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, SharedPreferenceConstants.DEFAULT_NOTIFICATION_PERIOD);
         //periodType.setSelection(sharedPreferences.getInt(SharedPreferenceConstants.PERIOD_TYPE, 0));
 
         try {
@@ -46,6 +51,10 @@ public class NotificationAlarmManager {
             // I am sorry, but there is no good way to handle this problem without using deprecated methods or third party libraries
             calendarNotificationTime.set(java.util.Calendar.HOUR_OF_DAY, notificationTimeDate.getHours());
             calendarNotificationTime.set(java.util.Calendar.MINUTE, notificationTimeDate.getMinutes());
+            // if it should start the next day, then add 1 day
+            if (isFirstStartTomorrow) {
+                calendarNotificationTime.add(Calendar.DATE, 1);
+            }
 
             java.util.Calendar calendarNotificationPeriod = java.util.Calendar.getInstance();
             calendarNotificationPeriod.setTimeInMillis(System.currentTimeMillis());
@@ -56,9 +65,6 @@ public class NotificationAlarmManager {
         } catch (ParseException e) {
             // this sould never happen
         }
-
-
-
     }
 
     public static void updateAlarmManager(Context context) {
