@@ -9,11 +9,11 @@
 
     <string name="period_begin">1st day after last break</string>
     <string name="period_type">Period type</string>
-    <string name="notification_time">notification time</string>
+    <string name="notification_time">Notification time</string>
     <string name="notification_period">Notification period</string>
 
     <string name="abort">Abort</string>
-    <string name="submit">submit</string>
+    <string name="submit">Submit</string>
 
     <string-array name="periodTypes">
         <item>21 - 7</item>
@@ -21,4 +21,6 @@
     <string name="notication">You have taken your pill?</string>
     <string name="taken">You have already taken your pill today.</string>
     <string name="not_taken">You have not taken your pill today.</string>
+    <string name="take">Pill taken today</string>
+    <string name="take_not">Pill not taken today</string>
 </resources>

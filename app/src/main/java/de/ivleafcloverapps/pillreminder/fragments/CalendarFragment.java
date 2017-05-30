@@ -11,8 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import de.ivleafcloverapps.pillreminder.R;
+import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
 import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
+import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
+import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 /**
  * Created by Christian on 11.05.2017.
@@ -38,18 +43,58 @@ public class CalendarFragment extends Fragment {
         takePill = (Button) getView().findViewById(R.id.buttonTakePill);
         info = (TextView) getView().findViewById(R.id.labelInfo);
 
-        // load and set texts from saved preferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-        String lastTakenDay = sharedPreferences.getString(SharedPreferenceConstants.LAST_TAKEN_DAY, "");
+        // check if pill is already taken today
+        takenToday = TakenTodayUtil.checkIfIsTakenToday(getView().getContext());
 
-        // TODO set takenToday
-        // TODO set label + button label
+        // set label and button label
+        setTextOfButtonAndLabel();
 
         takePill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO change status of taken + label + button label
+                // change status of taken and label + button label
+                toggleTakenStatus();
             }
         });
+    }
+
+    /**
+     * sets the text of the button and the label for the taken today status
+     */
+    private void setTextOfButtonAndLabel() {
+        if (takenToday) {
+            takePill.setText(R.string.take_not);
+            info.setText(R.string.taken);
+        } else {
+            takePill.setText(R.string.take);
+            info.setText(R.string.not_taken);
+        }
+    }
+
+    private void toggleTakenStatus() {
+        // change status of taken the pill
+        takenToday = !takenToday;
+
+        // change text of button and label
+        setTextOfButtonAndLabel();
+
+        // edit lastTakenDay in SharedPreferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        String newLastTakenDay;
+        if (takenToday) {
+            newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar);
+        } else {
+            // if it is not longer taken today, set the lastTakenToday to yesterday
+            calendar.set(Calendar.DATE, -1);
+            newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar);
+        }
+        editor.putString(SharedPreferenceConstants.LAST_TAKEN_DAY, newLastTakenDay);
+        editor.apply();
+
+        // change AlarmManager
+        NotificationAlarmManager.startAlarmManager(getView().getContext(), true);
     }
 }

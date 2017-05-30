@@ -14,4 +14,6 @@
     <string name="notication">Haben Sie Ihre Pille genommen?</string>
     <string name="taken">Sie haben Ihre Pille heute bereits genommen.</string>
     <string name="not_taken">Sie haben Ihre Pille heute noch nicht genommen.</string>
+    <string name="take">Pille heute genommen</string>
+    <string name="take_not">Pille heute doch nicht genommen</string>
 </resources>

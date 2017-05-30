@@ -13,6 +13,7 @@ import java.util.Date;
 
 import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
 import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
+import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 /**
  * Created by Christian on 26.05.2017.
@@ -21,10 +22,6 @@ import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 public class NotificationAlarmManager {
 
     public static void startAlarmManager(Context context, boolean isUpdate) {
-        startAlarmManager(context, isUpdate, false);
-    }
-
-    public static void startAlarmManager(Context context, boolean isUpdate, boolean isFirstStartTomorrow) {
         // check if AlarmManager is already running but not when Settings were changed and the AlarmManager has to be updated
         if (!isUpdate && isAlarmManagerRunning(context)) {
             // when yes, then do not start a new one
@@ -36,7 +33,7 @@ public class NotificationAlarmManager {
         Intent startNotificationServiceIntent = new Intent(context, NotificationService.class);
         PendingIntent startNotificationServicePendingIntent = PendingIntent.getService(context, 0, startNotificationServiceIntent, 0);
 
-        // TODO check if it is a break + check if it is next day
+        // TODO check if it is a break
         // set time and intervall by loading from SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         //periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, ""));
@@ -52,7 +49,7 @@ public class NotificationAlarmManager {
             calendarNotificationTime.set(java.util.Calendar.HOUR_OF_DAY, notificationTimeDate.getHours());
             calendarNotificationTime.set(java.util.Calendar.MINUTE, notificationTimeDate.getMinutes());
             // if it should start the next day, then add 1 day
-            if (isFirstStartTomorrow) {
+            if (TakenTodayUtil.checkIfIsTakenToday(context)) {
                 calendarNotificationTime.add(Calendar.DATE, 1);
             }
 
@@ -65,30 +62,6 @@ public class NotificationAlarmManager {
         } catch (ParseException e) {
             // this sould never happen
         }
-    }
-
-    public static void updateAlarmManager(Context context) {
-        /*// TODO
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-        PendingIntent startNotificationServicePendingIntent = getAlarmManager(context);
-        // TODO check if it is a break and load period informations
-        // set time and intervall by loading from SharedPreferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        //periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, ""));
-        String notificationTime = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, "00:00");
-        String notificationPeriod = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, "00:10");
-        //periodType.setSelection(sharedPreferences.getInt(SharedPreferenceConstants.PERIOD_TYPE, 0));
-
-        try {
-            java.util.Calendar calendarNotificationTime = java.util.Calendar.getInstance();
-            calendarNotificationTime.setTime(DateFormatConstants.TIME_FORMAT.parse(notificationTime));
-            java.util.Calendar calendarNotificationPeriod = java.util.Calendar.getInstance();
-            calendarNotificationPeriod.setTime(DateFormatConstants.TIME_FORMAT.parse(notificationPeriod));
-            int notificationPeriodInMilliSeconds = (calendarNotificationTime.get(java.util.Calendar.HOUR_OF_DAY) * 60 + calendarNotificationTime.get(java.util.Calendar.MINUTE)) * 1000 * 60;
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendarNotificationTime.getTimeInMillis(), notificationPeriodInMilliSeconds, startNotificationServicePendingIntent);
-        } catch (ParseException e) {
-            // this sould never happen
-        }*/
     }
 
     private static PendingIntent getAlarmManager(Context context) {
