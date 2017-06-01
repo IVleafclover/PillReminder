@@ -8,12 +8,14 @@ import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
 
 /**
  * Created by Christian on 26.05.2017.
+ *
+ * receives device bott notification and starts own notification service
  */
 
 public class NotificationBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        // receive the boot notification
+        // receive the boot notification and start notification service
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             NotificationAlarmManager.startAlarmManager(context, false);
         }

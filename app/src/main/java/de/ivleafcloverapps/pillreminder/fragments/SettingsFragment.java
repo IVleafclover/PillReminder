@@ -182,11 +182,6 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
     }
 
     @Override
-    public void onSpinnerDateDialogNegativeClick(SpinnerDatePickerDialog dialog) {
-        // Nothing to do here
-    }
-
-    @Override
     public void onSpinnerTimeDialogPositiveClick(SpinnerTimePickerDialog dialog) {
         // TODO send TimePicker values with listener
         // load TimePicker from dialog and set them to EditText text
@@ -217,10 +212,5 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
                 // this should never happen
                 break;
         }
-    }
-
-    @Override
-    public void onSpinnerTimeDialogNegativeClick(SpinnerTimePickerDialog dialog) {
-        // Nothing to do here
     }
 }

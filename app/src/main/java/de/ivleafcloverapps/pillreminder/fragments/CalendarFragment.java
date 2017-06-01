@@ -84,6 +84,9 @@ public class CalendarFragment extends Fragment {
         }
     }
 
+    /**
+     * changes the date when the pill was last taken
+     */
     private void toggleTakenStatus() {
         // change status of taken the pill
         takenToday = !takenToday;

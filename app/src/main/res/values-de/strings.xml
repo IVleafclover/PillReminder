@@ -16,4 +16,5 @@
     <string name="not_taken">Sie haben Ihre Pille heute noch nicht genommen.</string>
     <string name="take">Pille heute genommen</string>
     <string name="take_not">Pille heute doch nicht genommen</string>
+    <string name="app_name_long">Erinner Mich (Pillen Erinnerung)</string>
 </resources>

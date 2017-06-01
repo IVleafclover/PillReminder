@@ -23,4 +23,5 @@
     <string name="not_taken">You have not taken your pill today.</string>
     <string name="take">Pill taken today</string>
     <string name="take_not">Pill not taken today</string>
+    <string name="app_name_long">Remind Me (Pill Reminder)</string>
 </resources>

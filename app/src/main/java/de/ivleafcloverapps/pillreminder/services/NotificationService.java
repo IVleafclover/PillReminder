@@ -14,6 +14,8 @@ import de.ivleafcloverapps.pillreminder.activities.MainActivity;
 
 /**
  * Created by Christian on 26.05.2017.
+ *
+ * the service that sends one notification
  */
 
 public class NotificationService extends Service {

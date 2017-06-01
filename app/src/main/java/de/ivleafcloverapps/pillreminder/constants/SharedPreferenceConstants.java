@@ -5,6 +5,7 @@ package de.ivleafcloverapps.pillreminder.constants;
  */
 
 public class SharedPreferenceConstants {
+    // designators of the SharedPreferences
     public static final String PERIOD_BEGIN = "periodBegin";
     public static final String NOTIFICATION_TIME = "notificationTime";
     public static final String NOTIFICATION_PERIOD = "notificationPeriod";

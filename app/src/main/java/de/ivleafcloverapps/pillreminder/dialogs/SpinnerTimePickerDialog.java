@@ -84,12 +84,6 @@ public class SpinnerTimePickerDialog extends DialogFragment {
                         // Send the positive button event back to the host activity
                         listener.onSpinnerTimeDialogPositiveClick(SpinnerTimePickerDialog.this);
                     }
-                })
-                .setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Send the negative button event back to the host activity
-                        listener.onSpinnerTimeDialogNegativeClick(SpinnerTimePickerDialog.this);
-                    }
                 });
         return builder.create();
     }

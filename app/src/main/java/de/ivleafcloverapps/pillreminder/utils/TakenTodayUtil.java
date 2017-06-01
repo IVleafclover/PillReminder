@@ -11,6 +11,8 @@ import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 
 /**
  * Created by Christian on 30.05.2017.
+ *
+ * a helper class to check if the pill is taken already today
  */
 
 public class TakenTodayUtil {

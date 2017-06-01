@@ -21,6 +21,12 @@ import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 public class NotificationAlarmManager {
 
+    /**
+     * starts or updates a AlarmManager
+     *
+     * @param context
+     * @param isUpdate
+     */
     public static void startAlarmManager(Context context, boolean isUpdate) {
         // check if AlarmManager is already running but not when Settings were changed and the AlarmManager has to be updated
         if (!isUpdate && isAlarmManagerRunning(context)) {
@@ -58,18 +64,29 @@ public class NotificationAlarmManager {
             calendarNotificationPeriod.setTime(DateFormatConstants.TIME_FORMAT.parse(notificationPeriod));
 
             int notificationPeriodInMilliSeconds = (calendarNotificationPeriod.get(java.util.Calendar.HOUR_OF_DAY) * 60 + calendarNotificationPeriod.get(java.util.Calendar.MINUTE)) * 1000 * 60;
-            // TODO the AlarmManager ignores Timezones, so that in a TimeZone +1 the ALarm goes one hour later than set in the app, this is to fix
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotificationTime.getTimeInMillis(), notificationPeriodInMilliSeconds, startNotificationServicePendingIntent);
         } catch (ParseException e) {
             // this sould never happen
         }
     }
 
+    /**
+     * gets the AlarmManager Service Intent if it is already running
+     *
+     * @param context
+     * @return
+     */
     private static PendingIntent getAlarmManager(Context context) {
         Intent startNotificationServiceIntent = new Intent(context, NotificationService.class);
         return PendingIntent.getService(context, 0, startNotificationServiceIntent, PendingIntent.FLAG_NO_CREATE);
     }
 
+    /**
+     * checks if the notification service is already runnign
+     *
+     * @param context
+     * @return
+     */
     private static boolean isAlarmManagerRunning(Context context) {
         return getAlarmManager(context) != null;
     }
