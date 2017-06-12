@@ -4,43 +4,60 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/labelPeriodBegin"
+        android:id="@+id/labelRevenueBegin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/period_begin" />
+        android:text="@string/revenue_begin" />
 
     <EditText
-        android:id="@+id/editPeriodBegin"
+        android:id="@+id/editRevenueBegin"
         android:layout_width="215dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/labelPeriodBegin"
+        android:layout_below="@+id/labelRevenueBegin"
         android:ems="10"
         android:focusable="false"
         android:inputType="date" />
 
     <TextView
-        android:id="@+id/labelPeriodType"
+        android:id="@+id/labelRevenueDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editPeriodBegin"
-        android:text="@string/period_type" />
+        android:layout_below="@+id/editRevenueBegin"
+        android:text="@string/revenue_days" />
 
-    <Spinner
-        android:id="@+id/spinnerPeriodType"
-        android:layout_width="215dp"
+    <EditText
+        android:id="@+id/editRevenueDays"
+        android:layout_width="100dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/labelPeriodType"
-        android:entries="@array/periodTypes"
-        />
+        android:layout_below="@+id/labelRevenueDays"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/labelBreakDays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editBreakDays"
+        android:layout_alignStart="@+id/editBreakDays"
+        android:layout_below="@+id/editRevenueBegin"
+        android:text="@string/break_days" />
+
+    <EditText
+        android:id="@+id/editBreakDays"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/labelNotificationTime"
+        android:layout_alignEnd="@+id/editRevenueBegin"
+        android:layout_alignRight="@+id/editRevenueBegin"
+        android:ems="10" />
 
     <TextView
         android:id="@+id/labelNotificationTime"
@@ -48,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/spinnerPeriodType"
+        android:layout_below="@+id/editRevenueDays"
         android:text="@string/notification_time" />
 
     <EditText

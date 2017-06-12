@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import java.text.ParseException;
@@ -26,12 +25,14 @@ import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerTimePickerDialogListener
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerDatePickerDialog;
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerTimePickerDialog;
 import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
+import de.ivleafcloverapps.pillreminder.watchers.ISettingsTextWatcher;
+import de.ivleafcloverapps.pillreminder.watchers.SettingsTextWatcher;
 
 /**
  * Created by Christian on 11.05.2017.
  */
 
-public class SettingsFragment extends Fragment implements ISpinnerDatePickerDialogListener, ISpinnerTimePickerDialogListener {
+public class SettingsFragment extends Fragment implements ISpinnerDatePickerDialogListener, ISpinnerTimePickerDialogListener, ISettingsTextWatcher {
 
     // ids of the dialogs
     private final int PERIOD_BEGIN_DIALOG_ID = 0;
@@ -41,7 +42,11 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
     private EditText periodBegin;
     private EditText notificationTime;
     private EditText notificationPeriod;
-    private Spinner periodType;
+    private EditText revenueDays;
+    private EditText breakDays;
+    // observer variables
+    private boolean somethingChanged;
+    private boolean revenueChanged;
 
     @Nullable
     @Override
@@ -53,8 +58,12 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // set observers to false
+        somethingChanged = false;
+        revenueChanged = false;
+
         // initialize listeners for text inputs, to open picker dialogs
-        periodBegin = (EditText) getView().findViewById(R.id.editPeriodBegin);
+        periodBegin = (EditText) getView().findViewById(R.id.editRevenueBegin);
         periodBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,47 +87,63 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             }
         });
 
-        // initialize spinner
-        periodType = (Spinner) getView().findViewById(R.id.spinnerPeriodType);
+        // initialize period type inputs
+        revenueDays = (EditText) getView().findViewById(R.id.editRevenueDays);
+        revenueDays.addTextChangedListener(new SettingsTextWatcher(this));
+        breakDays = (EditText) getView().findViewById(R.id.editBreakDays);
+        breakDays.addTextChangedListener(new SettingsTextWatcher(this));
 
         // load and set inputs from saved preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-        periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.PERIOD_BEGIN, SharedPreferenceConstants.DEFAULT_PERIOD_BEGIN));
+        periodBegin.setText(sharedPreferences.getString(SharedPreferenceConstants.REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_REVENUE_BEGIN));
         notificationTime.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, SharedPreferenceConstants.DEFAULT_NOTIFICATION_TIME));
         notificationPeriod.setText(sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, SharedPreferenceConstants.DEFAULT_NOTIFICATION_PERIOD));
-        periodType.setSelection(sharedPreferences.getInt(SharedPreferenceConstants.PERIOD_TYPE, SharedPreferenceConstants.DEFAULT_PERIOD_TYPE));
+        revenueDays.setText(Integer.toString(sharedPreferences.getInt(SharedPreferenceConstants.REVENUE_DAYS, SharedPreferenceConstants.DEFAULT_REVENUE_DAYS)));
+        breakDays.setText(Integer.toString(sharedPreferences.getInt(SharedPreferenceConstants.BREAK_DAYS, SharedPreferenceConstants.DEFAULT_BREAK_DAYS)));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // save every fragment_settings made in sharedPreferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        try {
-            editor.putString(SharedPreferenceConstants.PERIOD_BEGIN, periodBegin.getText().toString());
-        } catch (NullPointerException e) {
-            // Nothing to do here
-        }
-        try {
-            editor.putString(SharedPreferenceConstants.NOTIFICATION_TIME, notificationTime.getText().toString());
-        } catch (NullPointerException e) {
-            // Nothing to do here
-        }
-        try {
-            editor.putString(SharedPreferenceConstants.NOTIFICATION_PERIOD, notificationPeriod.getText().toString());
-        } catch (NullPointerException e) {
-            // Nothing to do here
-        }
-        try {
-            editor.putInt(SharedPreferenceConstants.PERIOD_TYPE, periodType.getSelectedItemPosition());
-        } catch (NullPointerException e) {
-            // Nothing to do here
-        }
-        editor.apply();
 
-        // update the notification timer
-        NotificationAlarmManager.startAlarmManager(getView().getContext(), true);
+        if (somethingChanged) {
+            // save every fragment_settings made in sharedPreferences
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            try {
+                editor.putString(SharedPreferenceConstants.REVENUE_BEGIN, periodBegin.getText().toString());
+            } catch (NullPointerException e) {
+                // Nothing to do here
+            }
+            try {
+                editor.putString(SharedPreferenceConstants.NOTIFICATION_TIME, notificationTime.getText().toString());
+            } catch (NullPointerException e) {
+                // Nothing to do here
+            }
+            try {
+                editor.putString(SharedPreferenceConstants.NOTIFICATION_PERIOD, notificationPeriod.getText().toString());
+            } catch (NullPointerException e) {
+                // Nothing to do here
+            }
+            try {
+                editor.putInt(SharedPreferenceConstants.REVENUE_DAYS, Integer.parseInt(revenueDays.getText().toString()));
+            } catch (NullPointerException e) {
+                // Nothing to do here
+            }
+            try {
+                editor.putInt(SharedPreferenceConstants.BREAK_DAYS, Integer.parseInt(breakDays.getText().toString()));
+            } catch (NullPointerException e) {
+                // Nothing to do here
+            }
+            editor.apply();
+
+            if (revenueChanged) {
+                // TODO update the coming preferences nextBreakDay and nextRevenueDay
+            }
+
+            // update the notification timer
+            NotificationAlarmManager.startAlarmManager(getView().getContext(), true);
+        }
     }
 
     /**
@@ -179,6 +204,8 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
         // TODO
         String formattedDate = DateFormatConstants.DATE_FORMAT.format(new Date(year - 1900, month, day));
         periodBegin.setText(formattedDate);
+
+        somethingChanged = true;
     }
 
     @Override
@@ -212,5 +239,13 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
                 // this should never happen
                 break;
         }
+
+        somethingChanged = true;
+    }
+
+    @Override
+    public void onTextChanged() {
+        somethingChanged = true;
+        revenueChanged = true;
     }
 }

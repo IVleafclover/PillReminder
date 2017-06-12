@@ -7,7 +7,7 @@
     <string name="navigation_drawer_open">Öffne Navigation</string>
     <string name="notification_period">Erinnerungsintervall</string>
     <string name="notification_time">Erinnerungszeit</string>
-    <string name="period_begin">1. Einnahmetag nach der letzten Pause</string>
+    <string name="revenue_begin">1. Einnahmetag nach der letzten Pause</string>
     <string name="period_type">Einnahmeschema</string>
     <string name="submit">Bestätigen</string>
     <string name="action_calendar">Kalender</string>
@@ -16,5 +16,7 @@
     <string name="not_taken">Sie haben Ihre Pille heute noch nicht genommen.</string>
     <string name="take">Pille heute genommen</string>
     <string name="take_not">Pille heute doch nicht genommen</string>
-    <string name="app_name_long">Erinner Mich (Pillen Erinnerung)</string>
+    <string name="app_name_long">Erinner mich (Pillenerinnerung)</string>
+    <string name="break_days">Pausentage</string>
+    <string name="revenue_days">Einnahmetage</string>
 </resources>
