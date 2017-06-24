@@ -7,4 +7,5 @@
     <color name="colorBackground">#fafafa</color>
     <color name="colorGreen">#008000</color>
     <color name="colorRed">#ff0000</color>
+    <color name="colorBlue">#0000ff</color>
 </resources>

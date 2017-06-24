@@ -27,6 +27,7 @@ public class TakenTodayUtil {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String lastTakenDay = sharedPreferences.getString(SharedPreferenceConstants.LAST_TAKEN_DAY, SharedPreferenceConstants.DEFAULT_LAST_TAKEN_DAY);
         Calendar calendar = Calendar.getInstance();
+        // TODO is this necessary?
         calendar.setTimeInMillis(System.currentTimeMillis());
         String currentDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());
         return currentDay.equals(lastTakenDay);

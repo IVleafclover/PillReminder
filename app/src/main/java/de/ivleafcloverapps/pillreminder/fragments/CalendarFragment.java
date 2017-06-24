@@ -18,6 +18,7 @@ import de.ivleafcloverapps.pillreminder.R;
 import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
 import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
+import de.ivleafcloverapps.pillreminder.utils.BreakUtil;
 import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 /**
@@ -63,23 +64,38 @@ public class CalendarFragment extends Fragment {
      * sets the text of the button and the label for the taken today status
      */
     private void setTextOfButtonAndLabel() {
-        if (takenToday) {
-            takePill.setText(R.string.take_not);
-            info.setText(R.string.taken);
+        // check if it is a break
+        if (new BreakUtil(PreferenceManager.getDefaultSharedPreferences(getView().getContext())).isBreak(Calendar.getInstance())) {
+            // if it is a break
+            takePill.setText(R.string.take);
+            takePill.setEnabled(false);
+            info.setText(R.string.revenue_break);
             // check version again to not take deprecated methods
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                info.setTextColor(getResources().getColor(R.color.colorGreen, getView().getContext().getTheme()));
+                info.setTextColor(getResources().getColor(R.color.colorBlue, getView().getContext().getTheme()));
             } else {
-                info.setTextColor(getResources().getColor(R.color.colorGreen));
+                info.setTextColor(getResources().getColor(R.color.colorBlue));
             }
         } else {
-            takePill.setText(R.string.take);
-            info.setText(R.string.not_taken);
-            // check version again to not take deprecated methods
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                info.setTextColor(getResources().getColor(R.color.colorRed, getView().getContext().getTheme()));
+            // if it is no break
+            if (takenToday) {
+                takePill.setText(R.string.take_not);
+                info.setText(R.string.taken);
+                // check version again to not take deprecated methods
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    info.setTextColor(getResources().getColor(R.color.colorGreen, getView().getContext().getTheme()));
+                } else {
+                    info.setTextColor(getResources().getColor(R.color.colorGreen));
+                }
             } else {
-                info.setTextColor(getResources().getColor(R.color.colorRed));
+                takePill.setText(R.string.take);
+                info.setText(R.string.not_taken);
+                // check version again to not take deprecated methods
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    info.setTextColor(getResources().getColor(R.color.colorRed, getView().getContext().getTheme()));
+                } else {
+                    info.setTextColor(getResources().getColor(R.color.colorRed));
+                }
             }
         }
     }
@@ -98,7 +114,8 @@ public class CalendarFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        // TODO is this necessary?
+        //calendar.setTimeInMillis(System.currentTimeMillis());
         String newLastTakenDay;
         if (takenToday) {
             newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());

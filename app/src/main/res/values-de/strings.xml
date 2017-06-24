@@ -19,4 +19,5 @@
     <string name="app_name_long">Erinner mich (Pillenerinnerung)</string>
     <string name="break_days">Pausentage</string>
     <string name="revenue_days">Einnahmetage</string>
+    <string name="revenue_break">Heute müssen Sie keine Pille nehmen.</string>
 </resources>

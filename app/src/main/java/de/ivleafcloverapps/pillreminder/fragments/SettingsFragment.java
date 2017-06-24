@@ -25,6 +25,7 @@ import de.ivleafcloverapps.pillreminder.dialogs.ISpinnerTimePickerDialogListener
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerDatePickerDialog;
 import de.ivleafcloverapps.pillreminder.dialogs.SpinnerTimePickerDialog;
 import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
+import de.ivleafcloverapps.pillreminder.utils.BreakUtil;
 import de.ivleafcloverapps.pillreminder.watchers.ISettingsTextWatcher;
 import de.ivleafcloverapps.pillreminder.watchers.SettingsTextWatcher;
 
@@ -138,7 +139,7 @@ public class SettingsFragment extends Fragment implements ISpinnerDatePickerDial
             editor.apply();
 
             if (revenueChanged) {
-                // TODO update the coming preferences nextBreakDay and nextRevenueDay
+                new BreakUtil(sharedPreferences).calculateNextDays();
             }
 
             // update the notification timer

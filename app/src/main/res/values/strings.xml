@@ -26,4 +26,5 @@
     <string name="app_name_long">Remind me (pill reminder)</string>
     <string name="revenue_days">Revenue days</string>
     <string name="break_days">Break days</string>
+    <string name="revenue_break">You have not to take a pill today.</string>
 </resources>
