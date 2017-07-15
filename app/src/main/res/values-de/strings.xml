@@ -20,4 +20,5 @@
     <string name="break_days">Pausentage</string>
     <string name="revenue_days">Einnahmetage</string>
     <string name="revenue_break">Heute müssen Sie keine Pille nehmen.</string>
+    <string name="hint_timezone">Hinweis: Wenn Sie die Zeitzone wechseln, wird empfohlen die Erinnerungszeit einmalig anzupassen. Wird dies nicht getan, kann es vorkommen, dass Benachrichtigungen zu falschen Zeiten kommen.</string>
 </resources>

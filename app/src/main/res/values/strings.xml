@@ -15,9 +15,6 @@
     <string name="abort">Abort</string>
     <string name="submit">Submit</string>
 
-    <string-array name="periodTypes">
-        <item>21 - 7</item>
-    </string-array>
     <string name="notication">You have taken your pill?</string>
     <string name="taken">You have already taken your pill today.</string>
     <string name="not_taken">You have not taken your pill today.</string>
@@ -27,4 +24,5 @@
     <string name="revenue_days">Revenue days</string>
     <string name="break_days">Break days</string>
     <string name="revenue_break">You have not to take a pill today.</string>
+    <string name="hint_timezone">Hint: When changing the timezone it is recommended to edit the notification time, once. Not doing this can lead to incorrect notification times.</string>
 </resources>

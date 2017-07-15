@@ -99,4 +99,14 @@
         android:focusable="false"
         android:inputType="date" />
 
+    <TextView
+        android:id="@+id/labelHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editNotificationPeriod"
+        android:layout_marginTop="10dp"
+        android:text="@string/hint_timezone" />
+
 </RelativeLayout>
