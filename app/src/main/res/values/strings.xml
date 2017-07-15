@@ -25,4 +25,7 @@
     <string name="break_days">Break days</string>
     <string name="revenue_break">You have not to take a pill today.</string>
     <string name="hint_timezone">Hint: When changing the timezone it is recommended to edit the notification time, once. Not doing this can lead to incorrect notification times.</string>
+    <string name="not_taken_yesterday">You have not taken your pill yesterday.</string>
+    <string name="take_yesterday">Pill taken yesterday</string>
+    <string name="taken_yesterday">You have taken your pill yesterday.</string>
 </resources>

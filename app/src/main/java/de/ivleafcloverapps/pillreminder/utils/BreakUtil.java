@@ -2,7 +2,6 @@ package de.ivleafcloverapps.pillreminder.utils;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -69,10 +68,8 @@ public class BreakUtil {
         // calculate next break and revenue day and save the dates
         SharedPreferences.Editor editor = sharedPreferences.edit();
         revenueBegin.add(Calendar.DATE, revenueDays);
-        Log.d("ABC", DateFormatConstants.DATE_FORMAT.format(revenueBegin.getTime()));
         editor.putString(SharedPreferenceConstants.NEXT_BREAK_BEGIN, DateFormatConstants.DATE_FORMAT.format(revenueBegin.getTime()));
         revenueBegin.add(Calendar.DATE, breakDays);
-        Log.d("ABC", DateFormatConstants.DATE_FORMAT.format(revenueBegin.getTime()));
         editor.putString(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, DateFormatConstants.DATE_FORMAT.format(revenueBegin.getTime()));
         editor.apply();
     }

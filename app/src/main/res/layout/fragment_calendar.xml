@@ -5,12 +5,45 @@
     android:padding="10dp">
 
     <TextView
+        android:id="@+id/labelInfoYesterdayTaken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/taken_yesterday"
+        android:textColor="@color/colorGreen"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/labelInfoYesterday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelInfoYesterdayTaken"
+        android:text="@string/not_taken_yesterday"
+        android:textColor="@color/colorRed"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/buttonTakePillYesterday"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/labelInfoYesterday"
+        android:layout_marginTop="5dp"
+        android:text="@string/take_yesterday"
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/labelInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/buttonTakePillYesterday" />
 
     <Button
         android:id="@+id/buttonTakePill"

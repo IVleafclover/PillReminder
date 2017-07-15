@@ -30,6 +30,9 @@ public class CalendarFragment extends Fragment {
     private TextView info;
     private Button takePill;
     private boolean takenToday;
+    private TextView infoYesterday;
+    private Button takePillYesterday;
+    private TextView infoYesterdayTaken;
 
     @Nullable
     @Override
@@ -44,6 +47,9 @@ public class CalendarFragment extends Fragment {
         // initialize gui objects
         takePill = (Button) getView().findViewById(R.id.buttonTakePill);
         info = (TextView) getView().findViewById(R.id.labelInfo);
+        takePillYesterday = (Button) getView().findViewById(R.id.buttonTakePillYesterday);
+        infoYesterday = (TextView) getView().findViewById(R.id.labelInfoYesterday);
+        infoYesterdayTaken = (TextView) getView().findViewById(R.id.labelInfoYesterdayTaken);
 
         // check if pill is already taken today
         takenToday = TakenTodayUtil.checkIfIsTakenToday(getView().getContext());
@@ -56,6 +62,68 @@ public class CalendarFragment extends Fragment {
             public void onClick(View v) {
                 // change status of taken and label + button label
                 toggleTakenStatus();
+            }
+        });
+
+        // check if pill was taken, when it was no break and set text and button if that is the case
+        if (!takenToday) {
+            final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
+            boolean isTakenYesterday = isTakenYesterday(sharedPreferences);
+            if (!isTakenYesterday) {
+                initializeYesterdayNotTakenElements(sharedPreferences);
+            }
+        }
+    }
+
+    /**
+     * checks if pill was taken yesterday if it had to be taken yesterday
+     *
+     * @param sharedPreferences
+     * @return
+     */
+    private boolean isTakenYesterday(SharedPreferences sharedPreferences) {
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DATE, -1);
+        String lastTakenDay = sharedPreferences.getString(SharedPreferenceConstants.LAST_TAKEN_DAY, SharedPreferenceConstants.DEFAULT_LAST_TAKEN_DAY);
+
+        // check if last taken day was yesterday
+        if (!DateFormatConstants.DATE_FORMAT.format(yesterday.getTime()).equals(lastTakenDay)) {
+            // check if yesterday was no break
+            if (!new BreakUtil(sharedPreferences).isBreak(yesterday)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * initializes the hidden yesterday elements
+     *
+     * @param sharedPreferences
+     */
+    private void initializeYesterdayNotTakenElements(final SharedPreferences sharedPreferences) {
+        // show text and button for taking yesterday
+        takePillYesterday.setVisibility(View.VISIBLE);
+        infoYesterday.setVisibility(View.VISIBLE);
+
+        takePillYesterday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // change status of taken yesterday
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, -1);
+                String newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());
+                editor.putString(SharedPreferenceConstants.LAST_TAKEN_DAY, newLastTakenDay);
+                editor.apply();
+
+                // hide yesterday elements and show new message
+                takePillYesterday.setVisibility(View.GONE);
+                infoYesterday.setVisibility(View.GONE);
+                infoYesterdayTaken.setVisibility(View.VISIBLE);
+
+                // change AlarmManager
+                NotificationAlarmManager.startAlarmManager(getView().getContext(), true);
             }
         });
     }
@@ -121,7 +189,7 @@ public class CalendarFragment extends Fragment {
             newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());
         } else {
             // if it is not longer taken today, set the lastTakenToday to yesterday
-            calendar.set(Calendar.DATE, -1);
+            calendar.add(Calendar.DATE, -1);
             newLastTakenDay = DateFormatConstants.DATE_FORMAT.format(calendar.getTime());
         }
         editor.putString(SharedPreferenceConstants.LAST_TAKEN_DAY, newLastTakenDay);
@@ -129,5 +197,9 @@ public class CalendarFragment extends Fragment {
 
         // change AlarmManager
         NotificationAlarmManager.startAlarmManager(getView().getContext(), true);
+
+        // if these elements are visible, they have to be hidden after that action
+        takePillYesterday.setVisibility(View.GONE);
+        infoYesterday.setVisibility(View.GONE);
     }
 }
