@@ -65,7 +65,7 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        // check if pill was taken, when it was no break and set text and button if that is the case
+        // check if pill was not taken yesterday, when it was no break and set text and button if that is the case
         if (!takenToday) {
             final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             boolean isTakenYesterday = isTakenYesterday(sharedPreferences);
@@ -89,7 +89,7 @@ public class CalendarFragment extends Fragment {
         // check if last taken day was yesterday
         if (!DateFormatConstants.DATE_FORMAT.format(yesterday.getTime()).equals(lastTakenDay)) {
             // check if yesterday was no break
-            if (!new BreakUtil(sharedPreferences).isBreak(yesterday)) {
+            if (!new BreakUtil(sharedPreferences).isBreak(yesterday, true)) {
                 return false;
             }
         }
@@ -133,7 +133,7 @@ public class CalendarFragment extends Fragment {
      */
     private void setTextOfButtonAndLabel() {
         // check if it is a break
-        if (new BreakUtil(PreferenceManager.getDefaultSharedPreferences(getView().getContext())).isBreak(Calendar.getInstance())) {
+        if (new BreakUtil(PreferenceManager.getDefaultSharedPreferences(getView().getContext())).isBreak(Calendar.getInstance(), false)) {
             // if it is a break
             takePill.setText(R.string.take);
             takePill.setEnabled(false);

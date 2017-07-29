@@ -14,6 +14,7 @@ public class SharedPreferenceConstants {
     public static final String BREAK_DAYS = "breakDays";
     public static final String NEXT_REVENUE_BEGIN = "nextRevenueBegin";
     public static final String NEXT_BREAK_BEGIN = "nextBreakBegin";
+    public static final String LAST_REVENUE_BEGIN = "lastRevenueBegin";
 
     // default values
     public static final String DEFAULT_REVENUE_BEGIN = "01.01.2017";
@@ -24,4 +25,5 @@ public class SharedPreferenceConstants {
     public static final int DEFAULT_BREAK_DAYS = 7;
     public static final String DEFAULT_NEXT_REVENUE_BEGIN = "29.01.2017";
     public static final String DEFAULT_NEXT_BREAK_BEGIN = "22.01.2017";
+    public static final String DEFAULT_LAST_REVENUE_BEGIN = "01.01.2017";
 }

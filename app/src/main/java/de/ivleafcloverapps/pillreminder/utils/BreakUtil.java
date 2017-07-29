@@ -22,7 +22,7 @@ public class BreakUtil {
         this.sharedPreferences = sharedPreferences;
     }
 
-    public boolean isBreak(Calendar notificationDay) {
+    public boolean isBreak(Calendar notificationDay, boolean isYesterdayCheck) {
         // set notification time to 0 hours and 0 minutes
         Calendar currentNotificationDay = (Calendar) notificationDay.clone();
         setHoursAndMinutesToZero(currentNotificationDay);
@@ -38,6 +38,13 @@ public class BreakUtil {
             } else {
                 // recalculate next break and next revenue day
                 recalculateNextDays();
+                // if it is yesterday check, than compare if yesterday was before the actual revenue begin day
+                if (isYesterdayCheck) {
+                    Calendar lastRevenueBeginDay = getDateFromSharedPreferencesWithoutHoursAndMinutes(SharedPreferenceConstants.LAST_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_LAST_REVENUE_BEGIN);
+                    if (currentNotificationDay.compareTo(lastRevenueBeginDay) < 0) {
+                        return true;
+                    }
+                }
                 return false;
             }
         }

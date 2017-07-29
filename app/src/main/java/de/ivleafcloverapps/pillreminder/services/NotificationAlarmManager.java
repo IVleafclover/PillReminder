@@ -57,7 +57,7 @@ public class NotificationAlarmManager {
 
             // check if it is a break
             BreakUtil breakUtil = new BreakUtil(sharedPreferences);
-            if (breakUtil.isBreak(calendarNotificationTime)) {
+            if (breakUtil.isBreak(calendarNotificationTime, false)) {
                 // set to next notification date after break
                 calendarNotificationTime = breakUtil.getNextDayAfterBreak();
             }
