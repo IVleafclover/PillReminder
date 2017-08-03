@@ -29,6 +29,14 @@ public class BreakUtil {
 
         Calendar nextBreakDay = getDateFromSharedPreferencesWithoutHoursAndMinutes(SharedPreferenceConstants.NEXT_BREAK_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_BREAK_BEGIN);
 
+        // if it is yesterday check, than compare if yesterday was before the actual revenue begin day
+        if (isYesterdayCheck) {
+            Calendar lastRevenueBeginDay = getDateFromSharedPreferencesWithoutHoursAndMinutes(SharedPreferenceConstants.LAST_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_LAST_REVENUE_BEGIN);
+            if (currentNotificationDay.compareTo(lastRevenueBeginDay) < 0) {
+                return true;
+            }
+        }
+
         if (currentNotificationDay.compareTo(nextBreakDay) < 0) {
             return false;
         } else {
@@ -38,13 +46,6 @@ public class BreakUtil {
             } else {
                 // recalculate next break and next revenue day
                 recalculateNextDays();
-                // if it is yesterday check, than compare if yesterday was before the actual revenue begin day
-                if (isYesterdayCheck) {
-                    Calendar lastRevenueBeginDay = getDateFromSharedPreferencesWithoutHoursAndMinutes(SharedPreferenceConstants.LAST_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_LAST_REVENUE_BEGIN);
-                    if (currentNotificationDay.compareTo(lastRevenueBeginDay) < 0) {
-                        return true;
-                    }
-                }
                 return false;
             }
         }
@@ -93,6 +94,8 @@ public class BreakUtil {
 
         // save the changed dates
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        // set next revenue begin to last revenue begin, before overwriting it
+        editor.putString(SharedPreferenceConstants.LAST_REVENUE_BEGIN, sharedPreferences.getString(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN));
         editor.putString(SharedPreferenceConstants.NEXT_BREAK_BEGIN, DateFormatConstants.DATE_FORMAT.format(nextBreakBegin.getTime()));
         editor.putString(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, DateFormatConstants.DATE_FORMAT.format(nextRevenueBegin.getTime()));
         editor.apply();
