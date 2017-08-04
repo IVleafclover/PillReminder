@@ -22,6 +22,13 @@ public class BreakUtil {
         this.sharedPreferences = sharedPreferences;
     }
 
+    /**
+     * checks if the day is or was in a break
+     *
+     * @param notificationDay  the day to check
+     * @param isYesterdayCheck when it is checked for yesterday, then we have to check if yesterday was in the old break
+     * @return is or wa sthe day a break
+     */
     public boolean isBreak(Calendar notificationDay, boolean isYesterdayCheck) {
         // set notification time to 0 hours and 0 minutes
         Calendar currentNotificationDay = (Calendar) notificationDay.clone();
@@ -51,10 +58,17 @@ public class BreakUtil {
         }
     }
 
+    /**
+     * loads next revenue day
+     * @return next day revenue day
+     */
     public Calendar getNextDayAfterBreak() {
         return getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
     }
 
+    /**
+     * calculates the next revenue begin and break begin day and sets the last revenue begin day to the last revenue begin attribute in the shared preferences
+     */
     public void calculateNextDays() {
         Calendar today = Calendar.getInstance();
         setHoursAndMinutesToZero(today);
@@ -75,6 +89,7 @@ public class BreakUtil {
 
         // calculate next break and revenue day and save the dates
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SharedPreferenceConstants.LAST_REVENUE_BEGIN, DateFormatConstants.DATE_FORMAT.format(revenueBegin.getTime()));
         revenueBegin.add(Calendar.DATE, revenueDays);
         editor.putString(SharedPreferenceConstants.NEXT_BREAK_BEGIN, DateFormatConstants.DATE_FORMAT.format(revenueBegin.getTime()));
         revenueBegin.add(Calendar.DATE, breakDays);
@@ -82,6 +97,9 @@ public class BreakUtil {
         editor.apply();
     }
 
+    /**
+     * recalculates next break and revenue begin day, when both revenue and break begin day are in the past and sets the last revenue begin day to the last revenue begin attribute in the shared preferences
+     */
     private void recalculateNextDays() {
         Calendar nextBreakBegin = getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_BREAK_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_BREAK_BEGIN);
         Calendar nextRevenueBegin = getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
@@ -125,6 +143,10 @@ public class BreakUtil {
         }
     }
 
+    /**
+     * sets hours, minutes, seconfs and miliseconds of a calendar to 0
+     * @param currentNotificationDay
+     */
     private void setHoursAndMinutesToZero(Calendar currentNotificationDay) {
         currentNotificationDay.set(Calendar.HOUR_OF_DAY, 0);
         currentNotificationDay.set(Calendar.MINUTE, 0);
