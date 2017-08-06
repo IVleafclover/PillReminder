@@ -39,7 +39,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelRevenueDays"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/labelBreakDays"
@@ -57,7 +58,8 @@
         android:layout_above="@+id/labelNotificationTime"
         android:layout_alignEnd="@+id/editRevenueBegin"
         android:layout_alignRight="@+id/editRevenueBegin"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/labelNotificationTime"

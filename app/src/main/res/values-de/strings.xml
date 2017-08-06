@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Erinner mich</string>
-    <string name="abort">Abbrechen</string>
     <string name="action_settings">Einstellungen</string>
     <string name="navigation_drawer_close">Schließe Navigation</string>
     <string name="navigation_drawer_open">Öffne Navigation</string>
     <string name="notification_period">Erinnerungsintervall</string>
     <string name="notification_time">Erinnerungszeit</string>
     <string name="revenue_begin">1. Einnahmetag nach der letzten Pause</string>
-    <string name="period_type">Einnahmeschema</string>
     <string name="submit">Bestätigen</string>
     <string name="action_calendar">Kalender</string>
     <string name="notication">Haben Sie Ihre Pille genommen?</string>
@@ -24,4 +22,5 @@
     <string name="not_taken_yesterday">Sie haben Ihre Pille gestern nicht genommen.</string>
     <string name="take_yesterday">Pille gestern genommen</string>
     <string name="taken_yesterday">Sie haben Ihre Pille gestern genommen.</string>
+    <string name="icon_description">App Icon</string>
 </resources>

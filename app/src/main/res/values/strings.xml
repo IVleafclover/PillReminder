@@ -8,11 +8,9 @@
     <string name="action_calendar">Calendar</string>
 
     <string name="revenue_begin">1st revenue day after last break</string>
-    <string name="period_type">Period type</string>
     <string name="notification_time">Notification time</string>
     <string name="notification_period">Notification period</string>
 
-    <string name="abort">Abort</string>
     <string name="submit">Submit</string>
 
     <string name="notication">You have taken your pill?</string>
@@ -28,4 +26,5 @@
     <string name="not_taken_yesterday">You have not taken your pill yesterday.</string>
     <string name="take_yesterday">Pill taken yesterday</string>
     <string name="taken_yesterday">You have taken your pill yesterday.</string>
+    <string name="icon_description">main app icon</string>
 </resources>

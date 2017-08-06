@@ -5,9 +5,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TimePicker
-        android:id="@+id/spinnerTimePicker"
+    <DatePicker
+        android:id="@+id/spinnerDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="true" />
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:focusable="true"
+        android:spinnersShown="true" />
 </LinearLayout>

@@ -9,5 +9,6 @@
         android:id="@+id/spinnerTimePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="true" />
+        android:focusable="true"
+        android:timePickerMode="spinner" />
 </LinearLayout>
