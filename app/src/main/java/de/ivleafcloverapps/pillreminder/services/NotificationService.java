@@ -30,11 +30,11 @@ public class NotificationService extends Service {
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-        // set Notifocation here
+        // set Notification here
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(getString(R.string.app_name));
-        builder.setContentText(getString(R.string.notication)).setWhen(System.currentTimeMillis());
+        builder.setContentText(getString(R.string.notification)).setWhen(System.currentTimeMillis());
         builder.setContentIntent(notificationPendingIntent);
         builder.setAutoCancel(true);
         builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);

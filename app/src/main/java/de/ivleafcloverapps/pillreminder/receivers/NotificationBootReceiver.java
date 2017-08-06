@@ -9,7 +9,7 @@ import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
 /**
  * Created by Christian on 26.05.2017.
  *
- * receives device bott notification and starts own notification service
+ * receives device boot notification and starts own notification service
  */
 
 public class NotificationBootReceiver extends BroadcastReceiver {

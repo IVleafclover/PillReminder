@@ -18,6 +18,8 @@ import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 /**
  * Created by Christian on 26.05.2017.
+ *
+ * the manager to start the repeating alarm
  */
 
 public class NotificationAlarmManager {
@@ -36,11 +38,11 @@ public class NotificationAlarmManager {
         }
 
         // create AlarmManager
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent startNotificationServiceIntent = new Intent(context, NotificationService.class);
         PendingIntent startNotificationServicePendingIntent = PendingIntent.getService(context, 0, startNotificationServiceIntent, 0);
 
-        // set time and intervall by loading from SharedPreferences
+        // set time and interval by loading from SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String notificationTime = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_TIME, SharedPreferenceConstants.DEFAULT_NOTIFICATION_TIME);
         String notificationPeriod = sharedPreferences.getString(SharedPreferenceConstants.NOTIFICATION_PERIOD, SharedPreferenceConstants.DEFAULT_NOTIFICATION_PERIOD);
@@ -76,7 +78,7 @@ public class NotificationAlarmManager {
             int notificationPeriodInMilliSeconds = (calendarNotificationPeriod.get(java.util.Calendar.HOUR_OF_DAY) * 60 + calendarNotificationPeriod.get(java.util.Calendar.MINUTE)) * 1000 * 60;
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotificationTime.getTimeInMillis(), notificationPeriodInMilliSeconds, startNotificationServicePendingIntent);
         } catch (ParseException e) {
-            // this sould never happen
+            // this should never happen
         }
     }
 
@@ -92,7 +94,7 @@ public class NotificationAlarmManager {
     }
 
     /**
-     * checks if the notification service is already runnign
+     * checks if the notification service is already running
      *
      * @param context
      * @return

@@ -14,6 +14,8 @@ import de.ivleafcloverapps.pillreminder.R;
 
 /**
  * Created by Christian on 19.05.2017.
+ *
+ * the spinner time dialog popup
  */
 
 public class SpinnerTimePickerDialog extends DialogFragment {
@@ -38,16 +40,6 @@ public class SpinnerTimePickerDialog extends DialogFragment {
         super();
         this.listener = listener;
         this.dialogId = dialogId;
-    }
-
-    // this is no clean android fragment constructor, but we want to use it here
-    @SuppressLint("ValidFragment")
-    public SpinnerTimePickerDialog(ISpinnerTimePickerDialogListener listener, int dialogId, int hour, int minute) {
-        super();
-        this.listener = listener;
-        this.dialogId = dialogId;
-        this.defaultHour = hour;
-        this.defaultMinute = minute;
     }
 
     // this is no clean android fragment constructor, but we want to use it here

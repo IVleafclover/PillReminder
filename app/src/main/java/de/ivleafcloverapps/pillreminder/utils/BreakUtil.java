@@ -12,11 +12,13 @@ import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 
 /**
  * Created by Christian on 24.06.2017.
+ *
+ * a util to check if a day was in a break and to recalculate the break period
  */
 
 public class BreakUtil {
 
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public BreakUtil(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
@@ -27,7 +29,7 @@ public class BreakUtil {
      *
      * @param notificationDay  the day to check
      * @param isYesterdayCheck when it is checked for yesterday, then we have to check if yesterday was in the old break
-     * @return is or wa sthe day a break
+     * @return is or was the day a break
      */
     public boolean isBreak(Calendar notificationDay, boolean isYesterdayCheck) {
         // set notification time to 0 hours and 0 minutes
@@ -144,7 +146,7 @@ public class BreakUtil {
     }
 
     /**
-     * sets hours, minutes, seconfs and miliseconds of a calendar to 0
+     * sets hours, minutes, seconds and milliseconds of a calendar to 0
      * @param currentNotificationDay
      */
     private void setHoursAndMinutesToZero(Calendar currentNotificationDay) {

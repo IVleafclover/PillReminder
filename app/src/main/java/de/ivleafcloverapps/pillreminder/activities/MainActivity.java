@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import de.ivleafcloverapps.pillreminder.R;
 import de.ivleafcloverapps.pillreminder.fragments.CalendarFragment;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * id of the active menu
      */
-    int activeMenuId;
+    private int activeMenuId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        // intialize navigation menu and make sure, the first menu is selected
+        // initialize navigation menu and make sure, the first menu is selected
         activeMenuId = 0;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(activeMenuId);
@@ -72,9 +71,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         // check if this entry is already selected
-        if (id == activeMenuId) {
-            // nothing to do here, only close the NavigationViewer
-        } else {
+        if (id != activeMenuId) {
             activeMenuId = id;
             // change fragments and put them to stack
             if (id == R.id.nav_calendar) {
@@ -97,7 +94,6 @@ public class MainActivity extends AppCompatActivity
      * @param newFragment
      */
     private void setFragment(Fragment newFragment) {
-        FrameLayout fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, newFragment);

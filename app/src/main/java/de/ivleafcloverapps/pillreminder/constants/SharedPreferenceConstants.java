@@ -2,6 +2,8 @@ package de.ivleafcloverapps.pillreminder.constants;
 
 /**
  * Created by Christian on 28.05.2017.
+ *
+ * the accesses to the shared preference values
  */
 
 public class SharedPreferenceConstants {

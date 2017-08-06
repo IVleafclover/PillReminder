@@ -9,7 +9,7 @@
     <string name="revenue_begin">1. Einnahmetag nach der letzten Pause</string>
     <string name="submit">Bestätigen</string>
     <string name="action_calendar">Kalender</string>
-    <string name="notication">Haben Sie Ihre Pille genommen?</string>
+    <string name="notification">Haben Sie Ihre Pille genommen?</string>
     <string name="taken">Sie haben Ihre Pille heute bereits genommen.</string>
     <string name="not_taken">Sie haben Ihre Pille heute noch nicht genommen.</string>
     <string name="take">Pille heute genommen</string>

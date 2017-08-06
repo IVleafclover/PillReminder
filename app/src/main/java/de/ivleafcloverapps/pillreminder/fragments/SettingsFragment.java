@@ -31,6 +31,8 @@ import de.ivleafcloverapps.pillreminder.watchers.SettingsTextWatcher;
 
 /**
  * Created by Christian on 11.05.2017.
+ *
+ * the fragment to change the settings
  */
 
 public class SettingsFragment extends Fragment implements ISpinnerDatePickerDialogListener, ISpinnerTimePickerDialogListener, ISettingsTextWatcher {

@@ -23,6 +23,8 @@ import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 /**
  * Created by Christian on 11.05.2017.
+ *
+ * a fragment where the user checks if he has taken the pill
  */
 
 public class CalendarFragment extends Fragment {

@@ -15,14 +15,16 @@ import de.ivleafcloverapps.pillreminder.R;
 
 /**
  * Created by Christian on 19.05.2017.
+ *
+ * the spinner date dialog popup
  */
 
 public class SpinnerDatePickerDialog extends DialogFragment {
 
     private final String TAG = this.getClass().getSimpleName();
-    int defaultYear;
-    int defaultMonth;
-    int defaultDay;
+    private int defaultYear;
+    private int defaultMonth;
+    private int defaultDay;
     /**
      * Listener object, which gets the results from the DatePicker
      */
@@ -38,16 +40,6 @@ public class SpinnerDatePickerDialog extends DialogFragment {
     public SpinnerDatePickerDialog(ISpinnerDatePickerDialogListener listener) {
         super();
         this.listener = listener;
-    }
-
-    // this is no clean android fragment constructor, but we want to use it here
-    @SuppressLint("ValidFragment")
-    public SpinnerDatePickerDialog(ISpinnerDatePickerDialogListener listener, int year, int month, int day) {
-        super();
-        this.listener = listener;
-        this.defaultYear = year;
-        this.defaultMonth = month;
-        this.defaultDay = day;
     }
 
     // this is no clean android fragment constructor, but we want to use it here
@@ -80,10 +72,6 @@ public class SpinnerDatePickerDialog extends DialogFragment {
 
     public DatePicker getDatePicker() {
         return datePicker;
-    }
-
-    public void setDatePicker(DatePicker datePicker) {
-        this.datePicker = datePicker;
     }
 
     public String getTAG() {

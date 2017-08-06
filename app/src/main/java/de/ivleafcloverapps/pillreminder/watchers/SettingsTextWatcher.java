@@ -6,11 +6,13 @@ import android.text.TextWatcher;
 
 /**
  * Created by Christian on 12.06.2017.
+ *
+ * a text watcher, that checks which setting fields where changed, so that only specific options had to be made, when the settings are closed
  */
 
 public class SettingsTextWatcher implements TextWatcher {
 
-    ISettingsTextWatcher listener;
+    private final ISettingsTextWatcher listener;
 
     // this is no clean android fragment constructor, but we want to use it here
     @SuppressLint("ValidFragment")
