@@ -23,4 +23,5 @@
     <string name="take_yesterday">Pille gestern genommen</string>
     <string name="taken_yesterday">Sie haben Ihre Pille gestern genommen.</string>
     <string name="icon_description">App Icon</string>
+    <string name="action_today">Heute</string>
 </resources>
