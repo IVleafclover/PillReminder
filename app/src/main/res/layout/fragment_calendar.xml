@@ -2,7 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:paddingBottom="10dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/labelInfoYesterdayTaken"
@@ -53,5 +56,30 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/labelInfo"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/labelCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonTakePill"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp" />
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactCalendarView"
+        android:layout_width="fill_parent"
+        android:layout_height="350dp"
+        android:layout_below="@+id/labelCalendar"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:compactCalendarBackgroundColor="@color/colorBackground"
+        app:compactCalendarCurrentDayBackgroundColor="@color/colorAccent"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorPrimary"
+        app:compactCalendarTargetHeight="350dp"
+        app:compactCalendarTextColor="@color/colorDarkGrey"
+        app:compactCalendarTextSize="18sp" />
 
 </RelativeLayout>

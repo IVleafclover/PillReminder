@@ -2,6 +2,7 @@ package de.ivleafcloverapps.pillreminder.fragments;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,13 +13,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
 import java.util.Calendar;
+import java.util.Date;
 
 import de.ivleafcloverapps.pillreminder.R;
 import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
 import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 import de.ivleafcloverapps.pillreminder.services.NotificationAlarmManager;
 import de.ivleafcloverapps.pillreminder.utils.BreakUtil;
+import de.ivleafcloverapps.pillreminder.utils.DateUtil;
 import de.ivleafcloverapps.pillreminder.utils.TakenTodayUtil;
 
 /**
@@ -35,6 +41,8 @@ public class CalendarFragment extends Fragment {
     private TextView infoYesterday;
     private Button takePillYesterday;
     private TextView infoYesterdayTaken;
+    private CompactCalendarView compactCalendarView;
+    private TextView labelCalendar;
 
     @Nullable
     @Override
@@ -52,6 +60,7 @@ public class CalendarFragment extends Fragment {
         takePillYesterday = (Button) getView().findViewById(R.id.buttonTakePillYesterday);
         infoYesterday = (TextView) getView().findViewById(R.id.labelInfoYesterday);
         infoYesterdayTaken = (TextView) getView().findViewById(R.id.labelInfoYesterdayTaken);
+        labelCalendar = (TextView) getView().findViewById(R.id.labelCalendar);
 
         // check if pill is already taken today
         takenToday = TakenTodayUtil.checkIfIsTakenToday(getView().getContext());
@@ -68,12 +77,74 @@ public class CalendarFragment extends Fragment {
         });
 
         // check if pill was not taken yesterday, when it was no break and set text and button if that is the case
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
         if (!takenToday) {
-            final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             boolean isTakenYesterday = isTakenYesterday(sharedPreferences);
             if (!isTakenYesterday) {
                 initializeYesterdayNotTakenElements(sharedPreferences);
             }
+        }
+
+        // set calendar highligts and label
+        highlightCalendarDays(sharedPreferences);
+        setCalendarListeners();
+    }
+
+    /**
+     * initialize a listener that changes the calendar label, when the calendar month is changed
+     */
+    private void setCalendarListeners() {
+        // define a listener to receive callbacks when certain events happen.
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                // TODO add listener for day click
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                // change calendar label
+                labelCalendar.setText(DateFormatConstants.CALENDAR_DESIGNATOR_FORMAT.format(firstDayOfNewMonth));
+            }
+        });
+    }
+
+    /**
+     * highlights the actual period days in different colours <br />
+     * green - days in the past <br />
+     * red - days in the future <br />
+     * blue - break days
+     *
+     * @param sharedPreferences the sharedPreferences
+     */
+    private void highlightCalendarDays(SharedPreferences sharedPreferences) {
+        // load dates for the highlights
+        DateUtil dateUtil = new DateUtil(sharedPreferences);
+        Calendar lastReveueBegin = dateUtil.getDateFromSharedPreferences(SharedPreferenceConstants.LAST_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_LAST_REVENUE_BEGIN);
+        dateUtil.setHoursAndMinutesToZero(lastReveueBegin);
+        Calendar nextBreakBegin = dateUtil.getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_BREAK_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_BREAK_BEGIN);
+        dateUtil.setHoursAndMinutesToZero(nextBreakBegin);
+        Calendar nextReveueBegin = dateUtil.getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
+        dateUtil.setHoursAndMinutesToZero(nextReveueBegin);
+        Calendar today = Calendar.getInstance();
+        dateUtil.setHoursAndMinutesToZero(today);
+
+        // set label of calendar
+        labelCalendar.setText(DateFormatConstants.CALENDAR_DESIGNATOR_FORMAT.format(today.getTime()));
+
+        // highlight the dates
+        compactCalendarView = (CompactCalendarView) getView().findViewById(R.id.compactCalendarView);
+        while (lastReveueBegin.compareTo(today) < 0 && lastReveueBegin.compareTo(nextBreakBegin) < 0) {
+            compactCalendarView.addEvent(new Event(Color.rgb(0, 128, 0), lastReveueBegin.getTimeInMillis()), false);
+            lastReveueBegin.add(Calendar.DATE, 1);
+        }
+        while (today.compareTo(nextBreakBegin) < 0) {
+            compactCalendarView.addEvent(new Event(Color.rgb(255, 0, 0), today.getTimeInMillis()), false);
+            today.add(Calendar.DATE, 1);
+        }
+        while (nextBreakBegin.compareTo(nextReveueBegin) < 0) {
+            compactCalendarView.addEvent(new Event(Color.rgb(0, 0, 255), nextBreakBegin.getTimeInMillis()), false);
+            nextBreakBegin.add(Calendar.DATE, 1);
         }
     }
 

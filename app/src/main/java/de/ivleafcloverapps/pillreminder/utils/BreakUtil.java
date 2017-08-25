@@ -3,9 +3,7 @@ package de.ivleafcloverapps.pillreminder.utils;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 
 import de.ivleafcloverapps.pillreminder.constants.DateFormatConstants;
 import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
@@ -19,9 +17,12 @@ import de.ivleafcloverapps.pillreminder.constants.SharedPreferenceConstants;
 public class BreakUtil {
 
     private final SharedPreferences sharedPreferences;
+    private DateUtil dateUtil;
 
     public BreakUtil(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
+        this.dateUtil = new DateUtil(sharedPreferences);
+        ;
     }
 
     /**
@@ -34,7 +35,7 @@ public class BreakUtil {
     public boolean isBreak(Calendar notificationDay, boolean isYesterdayCheck) {
         // set notification time to 0 hours and 0 minutes
         Calendar currentNotificationDay = (Calendar) notificationDay.clone();
-        setHoursAndMinutesToZero(currentNotificationDay);
+        dateUtil.setHoursAndMinutesToZero(currentNotificationDay);
 
         Calendar nextBreakDay = getDateFromSharedPreferencesWithoutHoursAndMinutes(SharedPreferenceConstants.NEXT_BREAK_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_BREAK_BEGIN);
 
@@ -65,7 +66,7 @@ public class BreakUtil {
      * @return next day revenue day
      */
     public Calendar getNextDayAfterBreak() {
-        return getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
+        return dateUtil.getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
     }
 
     /**
@@ -73,7 +74,7 @@ public class BreakUtil {
      */
     public void calculateNextDays() {
         Calendar today = Calendar.getInstance();
-        setHoursAndMinutesToZero(today);
+        dateUtil.setHoursAndMinutesToZero(today);
 
         Calendar revenueBegin = getDateFromSharedPreferencesWithoutHoursAndMinutes(SharedPreferenceConstants.REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_REVENUE_BEGIN);
         int revenueDays = sharedPreferences.getInt(SharedPreferenceConstants.REVENUE_DAYS, SharedPreferenceConstants.DEFAULT_REVENUE_DAYS);
@@ -103,8 +104,8 @@ public class BreakUtil {
      * recalculates next break and revenue begin day, when both revenue and break begin day are in the past and sets the last revenue begin day to the last revenue begin attribute in the shared preferences
      */
     private void recalculateNextDays() {
-        Calendar nextBreakBegin = getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_BREAK_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_BREAK_BEGIN);
-        Calendar nextRevenueBegin = getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
+        Calendar nextBreakBegin = dateUtil.getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_BREAK_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_BREAK_BEGIN);
+        Calendar nextRevenueBegin = dateUtil.getDateFromSharedPreferences(SharedPreferenceConstants.NEXT_REVENUE_BEGIN, SharedPreferenceConstants.DEFAULT_NEXT_REVENUE_BEGIN);
         int revenueDays = sharedPreferences.getInt(SharedPreferenceConstants.REVENUE_DAYS, SharedPreferenceConstants.DEFAULT_REVENUE_DAYS);
         int breakDays = sharedPreferences.getInt(SharedPreferenceConstants.BREAK_DAYS, SharedPreferenceConstants.DEFAULT_BREAK_DAYS);
 
@@ -123,36 +124,8 @@ public class BreakUtil {
 
     @NonNull
     private Calendar getDateFromSharedPreferencesWithoutHoursAndMinutes(String field, String defaultValue) {
-        Calendar nextBreakDay = getDateFromSharedPreferences(field, defaultValue);
-        setHoursAndMinutesToZero(nextBreakDay);
+        Calendar nextBreakDay = dateUtil.getDateFromSharedPreferences(field, defaultValue);
+        dateUtil.setHoursAndMinutesToZero(nextBreakDay);
         return nextBreakDay;
-    }
-
-    @NonNull
-    private Calendar getDateFromSharedPreferences(String field, String defaultValue) {
-        try {
-            String nextBreakBeginString = sharedPreferences.getString(field, defaultValue);
-            Date nextBreakBeginDate = DateFormatConstants.DATE_FORMAT.parse(nextBreakBeginString);
-            Calendar nextBreakDay = Calendar.getInstance();
-            // I am sorry, but there is no good way to handle this problem without using deprecated methods or third party libraries
-            nextBreakDay.set(Calendar.YEAR, nextBreakBeginDate.getYear() + 1900);
-            nextBreakDay.set(Calendar.MONTH, nextBreakBeginDate.getMonth());
-            nextBreakDay.set(Calendar.DAY_OF_MONTH, nextBreakBeginDate.getDate());
-            return nextBreakDay;
-        } catch (ParseException e) {
-            // this should never happen
-            return null;
-        }
-    }
-
-    /**
-     * sets hours, minutes, seconds and milliseconds of a calendar to 0
-     * @param currentNotificationDay
-     */
-    private void setHoursAndMinutesToZero(Calendar currentNotificationDay) {
-        currentNotificationDay.set(Calendar.HOUR_OF_DAY, 0);
-        currentNotificationDay.set(Calendar.MINUTE, 0);
-        currentNotificationDay.set(Calendar.SECOND, 0);
-        currentNotificationDay.set(Calendar.MILLISECOND, 0);
     }
 }
