@@ -2,10 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="10dp"
-    android:paddingLeft="50dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/labelInfoYesterdayTaken"
@@ -71,14 +68,14 @@
     <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/compactCalendarView"
         android:layout_width="fill_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/labelCalendar"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        app:compactCalendarBackgroundColor="@color/colorBackground"
+        app:compactCalendarBackgroundColor="#00FFFFFF"
         app:compactCalendarCurrentDayBackgroundColor="@color/colorAccent"
         app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorPrimary"
-        app:compactCalendarTargetHeight="350dp"
+        app:compactCalendarTargetHeight="300dp"
         app:compactCalendarTextColor="@color/colorDarkGrey"
         app:compactCalendarTextSize="18sp" />
 

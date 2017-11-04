@@ -88,6 +88,7 @@ public class CalendarFragment extends Fragment {
         // set calendar highligts and label
         highlightCalendarDays(sharedPreferences);
         setCalendarListeners();
+        compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
     }
 
     /**
